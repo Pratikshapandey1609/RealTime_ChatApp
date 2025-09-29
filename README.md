@@ -64,8 +64,8 @@ backend/
 ### Clone Repository
 
 ```bash
-git clone https://github.com/your-username/chat-app.git
-cd chat-app
+git clone https://github.com/Pratikshapandey1609/RealTime_ChatApp.git
+cd RealTime_ChatApp
 ```
 
 ### Setup Backend
