@@ -1,0 +1,20 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "A real-time chat and video calling application built with **React, Node.js, Express, MongoDB, and Stream Video SDK**.\r This project demonstrates full-stack development skills, authentication, chat integration, and real-time communication.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pratikshapandey1609/RealTime_ChatApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pratikshapandey1609/RealTime_ChatApp/issues"
+  },
+  "homepage": "https://github.com/Pratikshapandey1609/RealTime_ChatApp#readme"
+}

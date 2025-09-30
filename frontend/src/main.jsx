@@ -9,7 +9,6 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n.js';
 
 
-// ✅ Apply theme globally before React renders
 document.documentElement.setAttribute(
   "data-theme",
   localStorage.getItem("speakEasy-theme") || "coffee"

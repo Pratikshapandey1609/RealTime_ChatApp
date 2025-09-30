@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "dev": "src/server.js"
+    "dev": "src/server.js",
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "pratiksha pandey",
