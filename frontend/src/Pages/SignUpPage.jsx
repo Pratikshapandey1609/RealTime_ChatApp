@@ -5,9 +5,11 @@ import { motion } from "framer-motion";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import {signup} from "../lib/api.js"
+import { signup } from "../lib/api.js"
+import { useTranslation } from "react-i18next"
 
 function SignUpPage() {
+  const { t } = useTranslation();
   const [signupData, setSignupData] = useState({
     fullName: "",
     email: "",
@@ -22,7 +24,7 @@ function SignUpPage() {
     mutationFn: signup,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
-      toast.success("Signup Successfully !!");
+      toast.success(t());
       navigate("/")
     }
   });
@@ -31,6 +33,7 @@ function SignUpPage() {
     e.preventDefault();
     mutate(signupData);
   };
+
 
   return (
     <div
@@ -54,26 +57,26 @@ function SignUpPage() {
               <LanguagesIcon className="size-12 text-white" />
             </div>
             <span className="mt-3 text-4xl font-extrabold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-500">
-              SpeakEasy
+              {t("SpeakEasy")}
             </span>
           </div>
-          
+
           {/*  ERROR MESSAGE HERE */}
           {
             error && (
-               <div className="alert alert-error mb-4">
-                  <span>{error.response.data.message}</span>
-               </div>
+              <div className="alert alert-error mb-4">
+                <span>{error.response.data.message}</span>
+              </div>
             )}
           <form onSubmit={handleSignup} className="w-full">
             <div className="space-y-7">
               {/* Heading */}
               <div className="text-center">
                 <h2 className="text-3xl font-bold text-white">
-                  Create Your Account
+                  {t("CreateYourAccount")}
                 </h2>
                 <p className="text-lg text-gray-400 mt-2">
-                  Begin your language-learning journey today 🚀
+                  {t("BeginYourLanguagelearningJourneyToday")}
                 </p>
               </div>
 
@@ -81,7 +84,7 @@ function SignUpPage() {
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text text-lg font-medium text-gray-300">
-                    Full Name
+                    {t("YourFullName")}
                   </span>
                 </label>
                 <input
@@ -100,7 +103,7 @@ function SignUpPage() {
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text text-lg font-medium text-gray-300">
-                    Email Address
+                    {t("EmailAddress")}
                   </span>
                 </label>
                 <input
@@ -119,7 +122,7 @@ function SignUpPage() {
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text text-lg font-medium text-gray-300">
-                    Password
+                    {t("password")}
                   </span>
                 </label>
                 <input
@@ -133,7 +136,7 @@ function SignUpPage() {
                   required
                 />
                 <p className="text-xl text-gray-400 mt-2">
-                  Must be at least 8 characters long.
+                  {t("UseAtLeast8CharactersForYourPassword")}
                 </p>
               </div>
 
@@ -146,13 +149,13 @@ function SignUpPage() {
                     required
                   />
                   <span className="text-lg leading-tight text-gray-400">
-                    I agree to the{" "}
+                    {t("Iagreetothe")}{" "}
                     <span className="text-indigo-400 hover:underline cursor-pointer">
-                      Terms of Service
+                      {t("TermsOfService")}
                     </span>{" "}
-                    and{" "}
+                    {t(" And")}{" "}
                     <span className="text-indigo-400 hover:underline cursor-pointer">
-                      Privacy Policy
+                      {t("PrivacyPolicy")}
                     </span>
                     .
                   </span>
@@ -170,12 +173,13 @@ function SignUpPage() {
               {/* Already have account */}
               <div className="text-center mt-4">
                 <p className=" text-xl text-gray-400">
-                  Already have an account?{" "}
+                  {t("AlreadyhaveAnaccount")}{" "}
                   <Link
                     to="/login"
                     className="text-indigo-400 hover:underline font-medium"
                   >
-                    Sign In
+                    {t("SignIn")}
+
                   </Link>
                 </p>
               </div>
@@ -199,7 +203,7 @@ function SignUpPage() {
             >
               <img
                 src="/i.png"
-                alt="Language connection illustration"
+                alt=""
                 className="w-full h-full object-contain drop-shadow-xl"
               />
             </motion.div>
@@ -207,11 +211,10 @@ function SignUpPage() {
             {/* Info */}
             <div className="mt-8 space-y-4">
               <h2 className="text-2xl font-semibold text-indigo-300">
-                Connect with Language Partners Worldwide
+                {t("ConnectWithLanguagePartnersBelowToStartPracticingTogether")}
               </h2>
               <p className="text-gray-400 text-lg leading-relaxed">
-                Practice conversations, build friendships, and enhance your
-                language skills in a supportive global community 🌍
+                {t("PracticeConversationsBuildFriendshipsAndEnhanceYourLanguageSkillsInASupportiveGlobalCommunity")}
               </p>
             </div>
           </div>

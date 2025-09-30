@@ -54,8 +54,8 @@ userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();
 
     try {
-        this.password = await argon2.hash(this.password); // Argon2 auto-generates salt
-        console.log(password)
+        this.password = await argon2.hash(this.password,12); // Argon2 auto-generates salt
+        // console.log(password)
         next();
     } catch (error) {
         next(error);

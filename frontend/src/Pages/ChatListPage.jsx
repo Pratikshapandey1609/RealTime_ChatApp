@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useAuthUser from "../hooks/useAuthUser";
 import { getRecommendedUsers } from "../lib/api"; // you already have this in api.js
+import {useTranslation} from "react-i18next"
 
 const ChatListPage = () => {
+    const {t} = useTranslation();
     const { authUser } = useAuthUser();
     const [users, setUsers] = useState([]);
 
@@ -15,15 +17,15 @@ const ChatListPage = () => {
                 const filtered = data.filter((u) => u._id !== authUser?._id);
                 setUsers(filtered);
             } catch (error) {
-                console.error("Error fetching users:", error);
+                console.error(t("ErrorFetchingUsers"), error);
             }
         };
         if (authUser) fetchUsers();
-    }, [authUser]);
+    }, [authUser , t]);
 
     return (
         <div className=" p-20 ">
-            <h2 className="text-3xl  flex flex-col items-center font-bold mb-8">People You May Know</h2>
+            <h2 className="text-3xl  flex flex-col items-center font-bold mb-8">{t("PeopleYouMayKnow")}</h2>
             <ul className="space-y-6">
                 {users.map((user) => (
                     <li key={user._id} className="max-w-4xl mx-auto">
@@ -39,7 +41,7 @@ const ChatListPage = () => {
                             <div>
                                 <p className="font-semibold">{user.fullName}</p>
                                 <p className="text-lg text-base-content/70">
-                                    Initiate Conversation
+                                  {t("InitiateConversation")}
                                 </p>
                             </div>
                         </Link>

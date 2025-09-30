@@ -3,8 +3,11 @@ import useAuthUser from "../hooks/useAuthUser";
 import { BellIcon, LanguagesIcon, LogOutIcon, ShipWheelIcon } from "lucide-react";
 import ThemeSelector from "./ThemeSelector";
 import useLogout from "../hooks/useLogout";
+import LanguageSelector from "./LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
+  const {t}= useTranslation();
   const { authUser } = useAuthUser();
   const location = useLocation();
   const isChatPage = location.pathname?.startsWith("/chat");
@@ -13,33 +16,35 @@ const Navbar = () => {
 
   return (
     <nav className="bg-base-200 border-b border-base-300 sticky top-0 z-30 h-20 flex items-center">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-12 sm:px-6 lg:px-8">
         <div className="flex items-center justify-end w-full">
           {/* LOGO - ONLY IN THE CHAT PAGE */}
           {isChatPage && (
             <div className="pl-5">
               <Link to="/" className="flex items-center gap-2.5">
-                <LanguagesIcon className="size-9 text-primary" />
+                <LanguagesIcon className="size-12 text-primary" />
                 <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary  tracking-wider">
-                  SpeakEasy
+                 {t("SpeakEasy")}
                 </span>
               </Link>
             </div>
           )}
 
-          <div className="flex items-center gap-3 sm:gap-4 ml-auto">
+          <div className="flex items-center  gap-3 sm:gap-4 ml-auto">
             <Link to={"/notification"}>
               <button className="btn btn-ghost btn-circle">
-                <BellIcon className="h-6 w-6 text-base-content opacity-70" />
+                <BellIcon className="h-6 w-6 size-12 text-base-content opacity-70" />
               </button>
             </Link>
           </div>
 
           {/* TODO */}
-          <ThemeSelector />
+          <ThemeSelector className= "m-4 "/>
+         <LanguageSelector className= "m-4"/>
+
 
           <div className="avatar">
-            <div className="w-9 rounded-full">
+            <div className="w-9 m-4 rounded-full">
               <img src={authUser?.profilePic} alt="User Avatar" rel="noreferrer" />
             </div>
           </div>

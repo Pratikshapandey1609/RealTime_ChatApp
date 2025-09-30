@@ -7,9 +7,11 @@ import { Globe, LoaderIcon, MapPinIcon, ShipWheelIcon, UserPen } from "lucide-re
 import { LANGUAGES } from "../constants";
 import { CameraIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next"
 
 function OnboardingPage() {
 
+  const { t } = useTranslation();
   const { authUser } = useAuthUser();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -28,9 +30,9 @@ function OnboardingPage() {
       toast.success("Profile Onboarded Successfully !!");
       await queryClient.invalidateQueries({ queryKey: ["authUser"] })
       queryClient.setQueryData(["authUser"], (old) => ({
-         ...old,
-         ...profile,
-         isOnboarded : true,
+        ...old,
+        ...profile,
+        isOnboarded: true,
       }))
       navigate("/");
 
@@ -50,14 +52,14 @@ function OnboardingPage() {
     const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
 
     setProfile({ ...profile, profilePic: randomAvatar });
-    toast.success("Random profile picture generated!");
+    toast.success(t("RandomProfilePictureGenerated"));
   }
 
   return (
     <div className="min-h-screen bg-base-100 flex items-center justify-center p-4">
       <div className="card bg-base-200 w-full max-w-3xl shadow-xl">
         <div className="card-body p-6 sm:p-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6">Complete Your Profile</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6">{t("CompleteYourProfile")}</h1>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* PROFILE PIC CONTAINER */}
@@ -81,7 +83,7 @@ function OnboardingPage() {
               <div className="flex items-center gap-2">
                 <button type="button" onClick={handleRandomAvatar} className="btn btn-accent">
                   <UserPen className="size-4 mr-2" />
-                  Generate Random Avatar
+                  {t("GenerateRandomAvatar")}
                 </button>
               </div>
             </div>
@@ -89,7 +91,7 @@ function OnboardingPage() {
             {/* FULL NAME */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Full Name</span>
+                <span className="label-text">{t("FullName")}</span>
               </label>
               <input
                 type="text"
@@ -97,7 +99,7 @@ function OnboardingPage() {
                 value={profile.fullName}
                 onChange={(e) => setProfile({ ...profile, fullName: e.target.value })}
                 className="input input-bordered w-full"
-                placeholder="Your full name"
+                placeholder={t("YourFullName")}
               />
             </div>
 
@@ -111,7 +113,7 @@ function OnboardingPage() {
                 value={profile.bio}
                 onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
                 className="textarea textarea-bordered h-24"
-                placeholder="Tell others about yourself and your language learning goals"
+                placeholder={t("TellOthersAboutYourselfAndYourLanguageLearningGoals")}
               />
             </div>
 
@@ -120,7 +122,7 @@ function OnboardingPage() {
               {/* NATIVE LANGUAGE */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Native Language</span>
+                  <span className="label-text">{t("NativeLanguage")}</span>
                 </label>
                 <select
                   name="nativeLanguage"
@@ -128,7 +130,7 @@ function OnboardingPage() {
                   onChange={(e) => setProfile({ ...profile, NativeLanguage: e.target.value })}
                   className="select select-bordered w-full"
                 >
-                  <option value="">Select your native language</option>
+                  <option value="">{t("SelectYourNativeLanguage")}</option>
                   {LANGUAGES.map((lang) => (
                     <option key={`native-${lang}`} value={lang.toLowerCase()}>
                       {lang}
@@ -140,7 +142,7 @@ function OnboardingPage() {
               {/* LEARNING LANGUAGE */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Learning Language</span>
+                  <span className="label-text">{t("LearningLanguage")}</span>
                 </label>
                 <select
                   name="learningLanguage"
@@ -148,7 +150,7 @@ function OnboardingPage() {
                   onChange={(e) => setProfile({ ...profile, LearningLanguage: e.target.value })}
                   className="select select-bordered w-full"
                 >
-                  <option value="">Select language you're learning</option>
+                  <option value="">{t("SelectLanguageYoureLearning")}</option>
                   {LANGUAGES.map((lang) => (
                     <option key={`learning-${lang}`} value={lang.toLowerCase()}>
                       {lang}
@@ -161,7 +163,7 @@ function OnboardingPage() {
             {/* LOCATION */}
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Location</span>
+                <span className="label-text">{t("Location")}</span>
               </label>
               <div className="relative">
                 <MapPinIcon className="absolute top-1/2 transform -translate-y-1/2 left-3 size-5 text-base-content opacity-70" />
@@ -182,12 +184,12 @@ function OnboardingPage() {
               {!isPending ? (
                 <>
                   <Globe className="size-5 mr-2" />
-                  Complete Onboarding
+                  {t("CompleteOnboarding")}
                 </>
               ) : (
                 <>
                   <LoaderIcon className="animate-spin size-5 mr-2" />
-                  Onboarding...
+                  {(" Onboarding")}
                 </>
               )}
             </button>

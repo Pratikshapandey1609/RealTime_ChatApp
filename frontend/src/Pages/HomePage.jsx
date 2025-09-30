@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import {useTranslation } from "react-i18next";
+
 import {
   getOutgoingFriendReqs,
   getRecommendedUsers,
@@ -14,6 +16,7 @@ import FriendCard from "../components/FriendsCard";
 import NoFriendsFound from "../components/NoFriendsFound";
 
 const HomePage = () => {
+  const {t} = useTranslation();
   const queryClient = useQueryClient();
   const [outgoingRequestsIds, setOutgoingRequestsIds] = useState(new Set());
 
@@ -51,10 +54,10 @@ const HomePage = () => {
     <div className="p-4 sm:p-6  pl-3 mt-16  lg:p-8">
       <div className="container mx-auto  space-y-4 pl-20 sm:pl-24 lg:pl-28 pr-4 sm:pr-8 py-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Your Friends</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">{t("YourFriends")}</h2>
           <Link to="/notification" className="btn btn-outline btn-sm">
             <UsersIcon className="mr-2 size-4" />
-            Friend Requests
+          { t("friendRequests")}
           </Link>
         </div>
 
@@ -76,9 +79,9 @@ const HomePage = () => {
           <div className="mb-6 sm:mb-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Meet New Learners</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">{t("MeetNewLearners")}</h2>
                 <p className="opacity-70">
-                  Discover perfect language exchange partners based on your profile
+             {t("discoverPerfectPartners")}
                 </p>
               </div>
             </div>
@@ -90,9 +93,9 @@ const HomePage = () => {
             </div>
           ) : recommendedUsers.length === 0 ? (
             <div className="card bg-base-200 p-6 text-center">
-              <h3 className="font-semibold text-lg mb-2">No recommendations available</h3>
+              <h3 className="font-semibold text-lg mb-2">{t("noRecommendations")}</h3>
               <p className="text-base-content opacity-70">
-                Check back later for new language partners!
+              {t("  checkBackLate")}
               </p>
             </div>
           ) : (
@@ -148,12 +151,12 @@ const HomePage = () => {
                         console.log(hasRequestBeenSent),
                           <>
                             <CheckCircleIcon className="size-4 mr-2" />
-                            Request Sent
+                           {t(" RequestSent")}
                           </>
                         ) : (
                           <>
                             <UserPlusIcon className="size-4 mr-2" />
-                            Send Friend Request
+                           {t(" friendRequests")}
                           </>
                         )}
                       </button>

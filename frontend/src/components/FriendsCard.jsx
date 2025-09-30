@@ -1,8 +1,11 @@
 import React from 'react'
 import { getLanguageFlag } from '../lib/getLanguageFlagg';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function FriendsCard({friend}) {
+   const {t} = useTranslation();
+   
   return (
     <div className='card bg-base-200 hover:shadow-md translate-shadow'>
       <div className='card-body p-4'>
@@ -27,7 +30,7 @@ function FriendsCard({friend}) {
           </div>
 
           <Link to={`/chat/${friend._id}`} className='btn btn-outline w-full'>
-              Message
+             {t(" Message")}
           </Link>
       </div>
     </div>

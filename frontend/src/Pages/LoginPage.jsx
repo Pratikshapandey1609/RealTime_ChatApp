@@ -6,8 +6,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { login } from "../lib/api.js";
+import { useTranslation } from "react-i18next"
 
 function LoginPage() {
+  const { t } = useTranslation();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -22,11 +24,11 @@ function LoginPage() {
     mutationFn: login,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
-      toast.success("Logged in successfully 🎉");
+      toast.success(t("LoggedInSuccessfully"));
       navigate("/");
     },
     onError: (err) => {
-      toast.error(err?.response?.data?.message || "Something went wrong");
+      toast.error(err?.response?.data?.message || (t("SomethingWentWrong")));
     },
   });
 
@@ -57,14 +59,14 @@ function LoginPage() {
               <LanguagesIcon className="size-12 text-white" />
             </div>
             <span className="mt-3 text-4xl font-extrabold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-teal-500">
-              SpeakEasy
+              {t("SpeakEasy")}
             </span>
           </div>
 
           {/* ERROR MESSAGE */}
           {error && (
             <div className="mb-4 p-3 rounded-lg bg-red-600/20 text-red-400 text-sm">
-              {error?.response?.data?.message || "Something went wrong"}
+              {error?.response?.data?.message || (t("SomethingWentWrong"))}
             </div>
           )}
 
@@ -73,10 +75,10 @@ function LoginPage() {
               {/* Heading */}
               <div className="text-center">
                 <h2 className="text-3xl font-bold text-white">
-                  Welcome Back ✨
+                  {t("WelcomeBack")}
                 </h2>
                 <p className="text-lg text-gray-400 mt-2">
-                  Login to continue your language-learning adventure 🚀
+                  {t("LoginToContinueYourLanguageLearning")}
                 </p>
               </div>
 
@@ -84,7 +86,7 @@ function LoginPage() {
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text text-lg font-medium text-gray-300">
-                    Email Address
+                    {t("EmailAddress")}
                   </span>
                 </label>
                 <input
@@ -103,7 +105,7 @@ function LoginPage() {
               <div className="form-control w-full">
                 <label className="label">
                   <span className="label-text text-lg font-medium text-gray-300">
-                    Password
+                    {t("Password")}
                   </span>
                 </label>
                 <div className="relative">
@@ -126,7 +128,7 @@ function LoginPage() {
                   </button>
                 </div>
                 <p className="text-sm text-gray-400 mt-2">
-                  Use at least 8 characters for your password.
+                  {t("UseAtLeast8CharactersForYourPassword")}
                 </p>
               </div>
 
@@ -141,12 +143,12 @@ function LoginPage() {
               {/* Signup Redirect */}
               <div className="text-center mt-4">
                 <p className="text-lg text-gray-400">
-                  Don’t have an account?{" "}
+                  {t("DontHaveAnAccount")}{" "}
                   <Link
                     to="/signup"
                     className="text-cyan-400 hover:underline font-medium"
                   >
-                    Sign Up
+                    {t("SignUp")}
                   </Link>
                 </p>
               </div>
@@ -170,7 +172,7 @@ function LoginPage() {
             >
               <img
                 src="/i.png"
-                alt="Language community illustration"
+                alt={t("LanguageCommunityIllustration")}
                 className="w-full h-full object-contain drop-shadow-xl"
               />
             </motion.div>
@@ -178,11 +180,10 @@ function LoginPage() {
             {/* Info */}
             <div className="mt-8 space-y-4">
               <h2 className="text-2xl font-semibold text-cyan-300">
-                Your Global Language Hub 🌍
+                {t("YourGlobalLanguageHub")}
               </h2>
               <p className="text-gray-400 text-lg leading-relaxed">
-                Access thousands of conversations, interactive lessons, and real
-                speaking practice with people from all over the world.
+                {t("AccessThousandsOfConversationsInteractiveLessonsAndRealSpeakingPracticeWithPeopleFromAllOverTheWorld")}
               </p>
             </div>
           </div>

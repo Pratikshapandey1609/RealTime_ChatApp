@@ -3,7 +3,6 @@ import { useParams } from "react-router";
 import useAuthUser from "../hooks/useAuthUser";
 import { useQuery } from "@tanstack/react-query";
 import { getStreamToken } from "../lib/api";
-
 import {
   Channel,
   ChannelHeader,
@@ -15,15 +14,16 @@ import {
 } from "stream-chat-react";
 import { StreamChat } from "stream-chat";
 import toast from "react-hot-toast";
-
 import ChatLoader from "../components/ChatLoader";
 import CallButton from "../components/CallButton";
+import { useTranslation } from "react-i18next";
 
 const STEAM_API_KEY = import.meta.env.VITE_STEAM_API_KEY;
 
 const ChatPage = () => {
+  const { t } = useTranslation();
   const { id: targetUserId } = useParams();
-
+  
   const [chatClient, setChatClient] = useState(null);
   const [channel, setChannel] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -43,7 +43,7 @@ const ChatPage = () => {
       if (!tokenData?.token || !authUser) return;
 
       try {
-        console.log("Initializing stream chat client...");
+        console.log(t("InitializingStreamChatClient"));
 
         const client = StreamChat.getInstance(STEAM_API_KEY);
 
@@ -71,24 +71,24 @@ const ChatPage = () => {
         setChatClient(client);
         setChannel(currChannel);
       } catch (error) {
-        console.error("Error initializing chat:", error);
-        toast.error("Could not connect to chat. Please try again.");
+        console.error(t("ErrorInitializingChat"), error);
+        toast.error(t("CouldNotConnectToChatPleaseTryAgain"));
       } finally {
         setLoading(false);
       }
     };
 
     initChat();
-  }, [tokenData, authUser, targetUserId]);
+  }, [tokenData, authUser, targetUserId, t]);
 
   const handleVideoCall = () => {
     if (channel) {
       const callUrl = `${window.location.origin}/call/${channel.id}`;
 
       channel.sendMessage({
-        text: `I've started a video call. Join me here: ${callUrl}`,
+        text: `I've started a video call. Join me here:${callUrl}`,
       });
-      toast.success("Video call link sent successfully!");
+      toast.success(t("VideoCallLinkSentSuccessfully"));
     }
   };
 
@@ -99,7 +99,9 @@ const ChatPage = () => {
       <Chat client={chatClient}>
         <Channel channel={channel}>
           <div className="w-full relative">
+            
             <CallButton handleVideoCall={handleVideoCall} />
+
             <Window>
               <ChannelHeader />
               <MessageList />

@@ -4,10 +4,11 @@ import { Home, Users, Bell, MessageSquareIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import useAuthUser from "../hooks/useAuthUser";
 import { useThemeStore } from "../store/useThemeStore";
+import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { t} = useTranslation();
   const menuItems = [
     { name: "Home", icon: <Home size={22} />, link: "/" },
     { name: "Friends", icon: <Users size={22} />, link: "/friend" },
@@ -50,7 +51,7 @@ const Sidebar = () => {
               transition={{ duration: 0.3 }}
               className="text-xl font-bold text-cyan-200"
             >
-              SpeakEasy
+             {t("SpeakEasy",)}
             </motion.span>
           )}
         </motion.div>
